@@ -1,0 +1,593 @@
+/* CSS Variables */
+:root {
+  --bg-base:        #0a1628;
+  --bg-surface:     #0d1e3a;
+  --bg-hover:       #132540;
+  --border:         #1e3155;
+  --border-hover:   #2a4a7a;
+  --accent:         #3a7bd5;
+  --accent-hover:   #2d68c4;
+  --text-primary:   #e8eaf0;
+  --text-secondary: #b0c0d8;
+  --text-muted:     #4a6fa5;
+  --badge-new-bg:   #0f3d5c;
+  --badge-new-txt:  #4ab8f0;
+  --badge-low-bg:   #3d2a0f;
+  --badge-low-txt:  #f0b040;
+  --badge-out-bg:   #3d1a0f;
+  --badge-out-txt:  #f07040;
+  --badge-sale-bg:  #3d1a0f;
+  --badge-sale-txt: #f07040;
+  --badge-hot-bg:   #3d2a0f;
+  --badge-hot-txt:  #f0b040;
+  --wishlist-active:#e05555;
+  --radius-sm:      4px;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+  --sidebar-width:  200px;
+  --transition:     0.2s ease;
+}
+
+/*Reset*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* LAYOUT */
+
+/* product_page (the outer flex wrapper holding sidebar + main) */
+.product_page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+/* product_sidebar (the left <aside> filter panel) */
+.product_sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* sidebar_title ("Filters" heading at the top of the sidebar) */
+.sidebar_title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* Filter Sections */
+
+/* filter_section (wrapper for each group (Category, Price, Color, Availability)) */
+.filter_section {
+  margin-bottom: 20px;
+}
+
+/* filter_section_title (heading inside each filter group) */
+.filter_section_title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* filter_check (React Bootstrap <Form.Check> wrapper row) */
+.filter_check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.filter_check .form-check-input {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-hover);
+}
+
+.filter_check .form-check-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.filter_check:hover .form-check-label {
+  color: var(--text-primary);
+}
+
+/* Price Range */
+
+/* price_range (flex row holding the two number inputs and separator) */
+.price_range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price_range .form-control {
+  width: 72px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 4px 6px;
+  text-align: center;
+}
+
+.price_range .form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
+}
+
+/* price_separator (the "–" dash between min and max inputs) */
+.price_separator {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Colour Swatches */
+
+/* color_swatches (flex row of circular colour dots) */
+.color_swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* color_swatch (individual coloured circle) */
+.color_swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.color_swatch:hover {
+  transform: scale(1.15);
+}
+
+/* color_swatch.active (selected swatch gets a blue ring) */
+.color_swatch.active {
+  border-color: var(--accent);
+}
+
+/* ---- Sidebar Buttons ---- */
+
+/* btn_apply (blue "Apply Filters" button) */
+.btn_apply {
+  width: 100%;
+  padding: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  margin-top: 8px;
+}
+
+.btn_apply:hover {
+  background: var(--accent-hover);
+}
+
+/* btn_clear (ghost "Clear All" button) */
+.btn_clear {
+  width: 100%;
+  padding: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+  margin-top: 6px;
+}
+
+.btn_clear:hover {
+  color: var(--text-secondary);
+  border-color: var(--border-hover);
+}
+
+/* MAIN CONTENT */
+
+/* product_main (the <main> element holding topbar + grid) */
+.product_main {
+  flex: 1;
+  padding: 20px;
+  min-width: 0;
+}
+
+/* Top Bar */
+
+/* product_topbar (flex row with search, sort select, result count) */
+.product_topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+/* search_input (the text search box) */
+.search_input {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  padding: 7px 12px;
+  transition: border-color var(--transition);
+}
+
+.search_input::placeholder {
+  color: var(--text-muted);
+}
+
+.search_input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.15);
+}
+
+/* sort_select (the <select> dropdown for sorting) */
+.sort_select {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.sort_select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* result_count ("N products" text on the right of the topbar) */
+.result_count {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Active Filter Tags */
+
+/* active_filters (flex row of removable tags above the grid) */
+.active_filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  min-height: 0;
+}
+
+/* filter_tag (individual pill showing an active filter) */
+.filter_tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #0f2d50;
+  border: 1px solid #1e4a80;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: #5a9fe0;
+  cursor: pointer;
+  transition: background var(--transition);
+  user-select: none;
+}
+
+.filter_tag:hover {
+  background: #1a3a66;
+}
+
+/* filter_tag_close (the "✕" inside each tag) */
+.filter_tag_close {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/*PRODUCT GRID  (Bootstrap Container / Row)*/
+
+/* product_container (passed as className to <Container fluid>) */
+.product_container {
+  padding: 0;
+}
+
+/* product_row (passed as className to <Row>)
+  gap handled by Bootstrap Col padding (p-1) */
+
+/*PRODUCT CARD  (React Bootstrap <Card> overrides)*/
+
+/* product_card (the <Card> component className) */
+.product_card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition);
+  overflow: hidden;
+}
+
+.product_card:hover {
+  border-color: var(--accent) !important;
+  transform: translateY(-3px);
+}
+
+/* Bootstrap's internal .card-img-top inside custom card */
+.product_card .card-img-top {
+  height: 110px;
+  object-fit: cover;
+  background: #1a2e50;
+}
+
+/* card_img_placeholder (shown when product.img is empty) */
+.card_img_placeholder {
+  height: 110px;
+  background: #1a2e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2a4070;
+  font-size: 32px;
+}
+
+/* Bootstrap's internal .card-body inside custom card */
+.product_card .card-body {
+  padding: 10px 11px;
+  background: var(--bg-surface);
+}
+
+/* card_title (the product title within each card) */
+.card_title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* card_subtitle_text ("Category · N in stock" line) */
+.card_subtitle_text {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* card_footer_row (flex row at the bottom of the card body) */
+.card_footer_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* card_price */
+.card_price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* card_actions */
+.card_actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Badges */
+
+/* product_badge */
+.product_badge {
+  font-size: 9px !important;
+  padding: 2px 5px !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Specific badge colors for each badge type, using CSS variables for easy theming */
+.badge-new  { background: var(--badge-new-bg)  !important; color: var(--badge-new-txt)  !important; }
+.badge-low  { background: var(--badge-low-bg)  !important; color: var(--badge-low-txt)  !important; }
+.badge-out  { background: var(--badge-out-bg)  !important; color: var(--badge-out-txt)  !important; }
+.badge-sale { background: var(--badge-sale-bg) !important; color: var(--badge-sale-txt) !important; }
+.badge-hot  { background: var(--badge-hot-bg)  !important; color: var(--badge-hot-txt)  !important; }
+
+/* Wishlist Button */
+
+/* wishlist_btn (the heart icon button on each card) */
+.wishlist_btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  color: #2a4070;
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.wishlist_btn:hover {
+  color: var(--wishlist-active);
+  transform: scale(1.2);
+}
+
+/* wishlist_btn.active (filled heart when item is wishlisted)*/
+.wishlist_btn.active {
+  color: var(--wishlist-active);
+}
+
+/*EMPTY STATE*/
+
+/* empty_state (shown inside the grid when filtered list is empty) */
+.empty_state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty_state p {
+  font-size: 14px;
+}
+
+/*PRODUCT MODAL  (React Bootstrap <Modal> overrides)*/
+
+/* product_modal */
+.product_modal .modal-content {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+}
+
+.product_modal .modal-header {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+}
+
+.product_modal .modal-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.product_modal .btn-close {
+  filter: invert(1) opacity(0.5);
+}
+
+.product_modal .modal-body {
+  padding: 20px;
+}
+
+/* modal_product_img (the product image inside the modal) */
+.modal_product_img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: #1a2e50;
+  margin-bottom: 16px;
+}
+
+/* modal_product_img_placeholder (shown when product.img is empty) */
+.modal_product_img_placeholder {
+  width: 100%;
+  height: 200px;
+  background: #1a2e50;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #2a4070;
+  margin-bottom: 16px;
+}
+
+/* modal_price (large price text at the top of the modal body) */
+.modal_price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+/* modal_cat (Category) */
+.modal_cat {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* modal_stock */
+.modal_stock {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* modal_desc (product description paragraph) */
+.modal_desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+/* btn_add_cart(the "Add to Cart" button in the modal) */
+.btn_add_cart {
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  margin-top: 8px;
+}
+
+.btn_add_cart:hover {
+  background: var(--accent-hover);
+}
+
+/*SCROLLBAR*/
+
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg-base); }
+::-webkit-scrollbar-thumb  { background: var(--border-hover); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/*RESPONSIVE*/
+
+@media (max-width: 768px) {
+  .product_page    { flex-direction: column; }
+  .product_sidebar { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .filter_section  { flex: 1 1 140px; margin-bottom: 0; }
+}

@@ -1,0 +1,96 @@
+/* ───────────────── Footer ───────────────── */
+
+.footer {
+  background: #07111f;
+  color: #e8edf2;
+
+  margin-top: 80px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Container */
+.footer-container {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 40px;
+
+  padding: 60px 6%;
+}
+
+/* Brand */
+.footer-brand h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.footer-text {
+  color: #9fb2c7;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* Columns */
+.footer-column h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+
+  color: #ffffff;
+}
+
+/* Navigation */
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-nav a {
+  color: #9fb2c7;
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: #4da3ff;
+  transform: translateX(4px);
+}
+
+/* Contact */
+.footer-info p {
+  margin-bottom: 10px;
+
+  color: #9fb2c7;
+}
+
+.footer-info span {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  padding: 20px 6%;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  font-size: 0.85rem;
+  color: #7f94ad;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
