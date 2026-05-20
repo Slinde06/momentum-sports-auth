@@ -1,83 +1,111 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LoginPage() {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError]       = useState('');
+  const [loading, setLoading]   = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!username || !email || !password) {
-      alert('Please fill in all fields.');
-      return;
+      return setError('Please fill in all fields.');
     }
 
-    console.log('Logging in:', {
-      username,
-      email,
-      password,
-    });
+    setError('');
+    setLoading(true);
 
-    alert('Login Successful');
+    try {
+      const res = await axios.post(`${API}/auth/login`, {
+        username,
+        email,
+        password,
+      });
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userEmail", email);
+      alert('Login Successful');
+      navigate("/"); // redirect to Home after login
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid credentials");
+    }
+
+    setLoading(false);
+  };
+
+  const handleSignupRedirect = () => {
+    navigate('/signup');
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-        <div className="login-header">
-          <h1>Login</h1>
-          <p>Welcome back</p>
-        </div>
-
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="login-field">
-            <label>Username</label>
-            <input
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-
-          <div className="login-field">
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="login-field">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <button type="submit" className="login-btn">
-            Enter
-          </button>
-        </form>
-
-        <p className="login-or">Or login using</p>
-
-        <div className="login-socials">
-          <button className="social-btn facebook">F</button>
-          <button className="social-btn google">G</button>
-          <button className="social-btn twitter">X</button>
-        </div>
+  <div className="login-page">
+    <div className="login-card">
+      <div className="login-header">
+        <h1>Login</h1>
+        <p>Welcome back</p>
       </div>
+
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-field">
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="login-field">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="login-field">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+
+        <button type="submit" className="login-btn" disabled={loading}>
+          {loading ? "Logging in..." : "Enter"}
+        </button>
+
+        <button
+          type="button"
+          className="login-btn secondary"
+          onClick={handleSignupRedirect}
+          disabled={loading}
+        >
+          Sign Up
+        </button>
+      </form>
+
+      {error && <p className="error">{error}</p>}
     </div>
-  );
+  </div>
+);
 }
 
 export default LoginPage;
