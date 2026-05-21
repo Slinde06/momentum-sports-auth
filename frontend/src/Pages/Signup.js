@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Signup.css';
 // import Navbar from '../components/navbar';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 const API = 'http://localhost:5000/api/auth';
 
@@ -107,7 +107,7 @@ function Register() {
           {message && <p className="success">{message}</p>}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

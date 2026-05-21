@@ -103,12 +103,12 @@ const cors       = require('cors');
 const authRoutes = require('./routes/authRoutes');
 
 const app  = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 
 // Allow requests from the React frontend (Vite runs on 5173 by default)
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:5000' }));
 // app.use(cors({ origin: 'http://localhost:5000/', credentials: true }));
 
 // Parse incoming JSON request bodies

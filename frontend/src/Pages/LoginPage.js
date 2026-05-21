@@ -109,7 +109,7 @@ function LoginPage() {
             {error && <p className="error">{error}</p>}
           </div>
         </div>
-        <Footer />
+
       </>
     );
 }
