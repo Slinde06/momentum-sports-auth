@@ -220,92 +220,51 @@ function ProfileIcon() {
 
 /* ───────────────── Navbar ───────────────── */
 
+
 function Navbar() {
   return (
-    <BrowserRouter>
-
-      <nav className="navbar">
-
-        {/* Logo */}
-        <div className="navbar__brand">
-          <img
-            className="navbar__logo"
-            src="./imgs/Asset 6@8x.png"
-            alt="Momentum Sports"
+    <nav className="navbar">
+      {/* Logo */}
+      <div className="navbar__brand">
+        <img
+          className="navbar__logo"
+          src="./imgs/Asset 6@8x.png"
+          alt="Momentum Sports"
+        />
+      </div>
+      {/* Links */}
+      <div className="navbar__links">
+        <NavLink to="/home" className="nav-link">Home</NavLink>
+        <NavLink to="/products" className="nav-link">Products</NavLink>
+        <NavLink to="/support" className="nav-link">Support</NavLink>
+        <NavLink to="/about" className="nav-link">About</NavLink>
+        <NavLink to="/upload" className="nav-link">Upload</NavLink>
+      </div>
+      {/* Right Side */}
+      <div className="navbar__right">
+        {/* Search */}
+        <div className="navbar__search">
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search products..."
           />
         </div>
-
-        {/* Links */}
-        <div className="navbar__links">
-
-          <NavLink to="/home" className="nav-link">
-            Home
+        {/* Icons */}
+        <div className="navbar__icons">
+          <NavLink className="icon-link" to="/cart">
+            <span className="icon-circle">
+              <CartIcon />
+            </span>
           </NavLink>
-
-          <NavLink to="/products" className="nav-link">
-            Products
+          <NavLink className="icon-link" to="/login">
+            <span className="icon-circle">
+              <ProfileIcon />
+            </span>
           </NavLink>
-
-          <NavLink to="/support" className="nav-link">
-            Support
-          </NavLink>
-
-          <NavLink to="/about" className="nav-link">
-            About
-          </NavLink>
-
-          <NavLink to="/upload" className="nav-link">
-            Upload
-          </NavLink>
-
         </div>
-
-        {/* Right Side */}
-        <div className="navbar__right">
-
-          {/* Search */}
-          <div className="navbar__search">
-            <input
-              className="search-input"
-              type="text"
-              placeholder="Search products..."
-            />
-          </div>
-
-          {/* Icons */}
-          <div className="navbar__icons">
-
-            <NavLink className="icon-link" to="/cart">
-              <span className="icon-circle">
-                <CartIcon />
-              </span>
-            </NavLink>
-
-            <NavLink className="icon-link" to="/login">
-              <span className="icon-circle">
-                <ProfileIcon />
-              </span>
-            </NavLink>
-
-          </div>
-
-        </div>
-
-      </nav>
-
-      {/* Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-
-    </BrowserRouter>
+      </div>
+    </nav>
   );
 }
 
