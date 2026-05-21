@@ -3,6 +3,8 @@ import './LoginPage.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API = 'http://localhost:5000/api/auth';
+
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail]       = useState('');
@@ -23,15 +25,18 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/auth/login`, {
-        username,
+      const res = await axios.post(`${API}/login`, {
         email,
         password,
       });
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userEmail", email);
-      alert('Login Successful');
-      navigate("/"); // redirect to Home after login
+      if (res.data && res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userEmail", email);
+        alert('Login Successful');
+        navigate("/"); // redirect to Home after login
+      } else {
+        setError("Login failed: No token received");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials");
     }
