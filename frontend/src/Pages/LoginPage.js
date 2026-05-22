@@ -1,19 +1,17 @@
-
 import React, { useState } from 'react';
 import './LoginPage.css';
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import Navbar from '../components/navbar';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Footer from '../components/Footer';
 
 const API = 'http://localhost:5000/api/auth';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
-  const [email, setEmail]       = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError]       = useState('');
-  const [loading, setLoading]   = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,90 +26,82 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/login`, {
-        email,
-        password,
-      });
-      if (res.data && res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userEmail", email);
+      const res = await axios.post(`${API}/login`, { email, password });
+
+      if (res.data?.token) {
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userEmail', email);
         alert('Login Successful');
-        navigate("/"); // redirect to Home after login
+        navigate('/');
       } else {
-        setError("Login failed: No token received");
+        setError('Login failed: No token received');
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid credentials");
+      setError(err.response?.data?.message || 'Invalid credentials');
     }
 
     setLoading(false);
   };
 
-  const handleSignupRedirect = () => {
-    navigate('/signup');
-  };
-
-    return (
-      <>
-        {/* Navbar removed for Login page */}
-        <div className="login-page">
-          <div className="login-card">
-            <div className="login-header">
-              <h1>Login</h1>
-              <p>Welcome back</p>
-            </div>
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div className="login-field">
-                <label htmlFor="username">Username</label>
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="Enter username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              <div className="login-field">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              <div className="login-field">
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              <button type="submit" className="login-btn" disabled={loading}>
-                {loading ? "Logging in..." : "Enter"}
-              </button>
-              <button
-                type="button"
-                className="login-btn secondary"
-                onClick={handleSignupRedirect}
-                disabled={loading}
-              >
-                Sign Up
-              </button>
-            </form>
-            {error && <p className="error">{error}</p>}
+  return (
+    <>
+      <div className='login-page'>
+        <div className='login-card'>
+          <div className='login-header'>
+            <h1>Login</h1>
+            <p>Welcome back</p>
           </div>
+          <form className='login-form' onSubmit={handleSubmit}>
+            <div className='login-field'>
+              <label htmlFor='username'>Username</label>
+              <input
+                id='username'
+                type='text'
+                placeholder='Enter username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className='login-field'>
+              <label htmlFor='email'>Email</label>
+              <input
+                id='email'
+                type='email'
+                placeholder='Enter email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className='login-field'>
+              <label htmlFor='password'>Password</label>
+              <input
+                id='password'
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <button type='submit' className='login-btn' disabled={loading}>
+              {loading ? 'Logging in...' : 'Enter'}
+            </button>
+            <button
+              type='button'
+              className='login-btn secondary'
+              onClick={() => navigate('/signup')}
+              disabled={loading}
+            >
+              Sign Up
+            </button>
+          </form>
+          {error && <p className='error'>{error}</p>}
         </div>
-
-      </>
-    );
+      </div>
+    </>
+  );
 }
 
 export default LoginPage;
