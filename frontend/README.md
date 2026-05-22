@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# Demo Video Link
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+link:https://drive.google.com/drive/folders/1YBBXPXewO2gJDWbghah_cNbtPE76QUUd?usp=sharing
+---
 
-## Available Scripts
 
-In the project directory, you can run:
+# Auth App
 
-### `npm start`
+A full-stack authentication system built with React on the frontend and Node.js/Express on the backend, using MongoDB for data storage and JWT for session management.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- User registration with hashed passwords
+- User login with JWT token authentication
+- Protected route middleware
+- Client-side form validation
+- Automatic redirect after login/registration
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
+- React
+- React Router DOM
+- Axios
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend
+- Node.js
+- Express
+- Mongoose (MongoDB ODM)
+- bcryptjs (password hashing)
+- jsonwebtoken (JWT)
+- dotenv
+- cors
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+├── backend/
+│   ├── controllers/
+│   │   └── authController.js   # Register and login logic
+│   ├── middleware/
+│   │   └── authMiddleware.js   # JWT verification middleware
+│   ├── models/
+│   │   └── User.js             # Mongoose User schema
+│   ├── routes/
+│   │   └── authRoutes.js       # Auth route definitions
+│   ├── .env                    # Environment variables (never commit this)
+│   └── server.js               # Express app entry point
+│
+└── frontend/
+    └── src/
+        └── pages/
+            ├── LoginPage.jsx   # Login form and logic
+            └── Signup.jsx      # Registration form and logic
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
 
-## Learn More
+- Node.js (v18+)
+- A MongoDB Atlas account (or local MongoDB instance)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Backend Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-### Code Splitting
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. Create a `.env` file in the backend root and add the following:
+   ```env
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secret_key
+   PORT=5000
+   ```
 
-### Analyzing the Bundle Size
+4. Start the server:
+   ```bash
+   node server.js
+   ```
+   The server will run on `http://localhost:5000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Frontend Setup
 
-### Making a Progressive Web App
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Advanced Configuration
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   The app will run on `http://localhost:5173` (Vite) or `http://localhost:3000` (CRA).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| Method | Endpoint             | Description              | Auth Required |
+|--------|----------------------|--------------------------|---------------|
+| POST   | /api/auth/register   | Register a new user      | No            |
+| POST   | /api/auth/login      | Log in an existing user  | No            |
 
-### `npm run build` fails to minify
+### POST /api/auth/register
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Request body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Success response (201):**
+```json
+{
+  "message": "Account created successfully!"
+}
+```
+
+---
+
+### POST /api/auth/login
+
+**Request body:**
+```json
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Success response (200):**
+```json
+{
+  "token": "<jwt_token>",
+  "name": "John Doe"
+}
+```
+
+---
+
+## Security Notes
+
+- Passwords are hashed using **bcryptjs** with a salt round of 12 before being stored.
+- JWTs expire after **1 day** and must be included in the `Authorization: Bearer <token>` header for protected routes.
+- The `.env` file must **never** be committed to version control. Add it to your `.gitignore`:
+  ```
+  .env
+  ```
+- Use a strong, random string for `JWT_SECRET` in production.
+
+---
+
+## Known Issues / Notes
+
+- The login page collects a `username` field but only sends `email` and `password` to the API. The username field on the login form can be removed or wired up as needed.
+- `localStorage` is used to store the JWT token on the client. For higher security in production, consider using `httpOnly` cookies instead.
