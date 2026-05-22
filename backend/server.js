@@ -107,9 +107,14 @@ const PORT = process.env.PORT || 5000;
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 
-// Allow requests from the React frontend (Vite runs on 5173 by default)
-app.use(cors({ origin: 'http://localhost:5000' }));
-// app.use(cors({ origin: 'http://localhost:5000/', credentials: true }));
+// Allow requests from the React frontend (CRA defaults to 3000)
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    credentials: true,
+  })
+);
+
 
 // Parse incoming JSON request bodies
 app.use(express.json());
